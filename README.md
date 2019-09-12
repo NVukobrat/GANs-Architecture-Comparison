@@ -59,6 +59,8 @@ model = keras.Sequential([
 ])
 ```
 
+Rest of model structure (as optimizer for example) can be view in the api/model.py file.
+
 ## 1 Models Architecture
 Here is the architecture of the Generator model:
 
@@ -88,3 +90,39 @@ model = keras.Sequential([
 
 Rest of model structure (as optimizer for example) can be view in the api/model.py file.
 
+## 2 Models Architecture
+Here is the architecture of the Generator model:
+
+```python
+model = keras.Sequential([
+	layers.Dense(units=7 * 7 * 1024, use_bias=False, input_shape=(GEN_NOISE_INPUT_SHAPE,)),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+	layers.Reshape((7, 7, 1024)),
+
+	layers.Conv2DTranspose(filters=1024, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=False),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+
+	layers.Conv2DTranspose(filters=512, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=False),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+
+	layers.Conv2DTranspose(filters=256, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=False),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+
+	layers.Conv2DTranspose(filters=128, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=False),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+
+	layers.Conv2DTranspose(filters=64, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False),
+	layers.BatchNormalization(),
+	layers.LeakyReLU(),
+
+	layers.Conv2DTranspose(filters=1, kernel_size=(5, 5), strides=(2, 2), padding="same", use_bias=False,
+							activation="tanh"),
+])
+```
+
+Rest of model structure (as optimizer for example) can be view in the api/model.py file.
